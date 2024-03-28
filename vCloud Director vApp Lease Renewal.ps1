@@ -13,7 +13,8 @@ $vcd = "https://cloud-amer01.psgcl.vmware.com" # Leave off trailing /, i.e.: htt
 $tenant = "tam-nestedworkload" # I.e.: https://vcd.example.com/tenant/<this value>
 
 # vCloud Director environment API key - 
-$apiKey = "L17kHPnVc0iCXF73YVqleI158vfhB7Ku"
+$apiKey = ""
+
 # vAPP IDs - I.e.: https://vcd.example.com/tenant/<tenant name>/vdcs/dca7041a-2ac4-46ce-8574-3392442cdedf/vapp/<this value>/general
 
 $vApps = @(
