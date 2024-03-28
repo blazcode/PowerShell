@@ -16,7 +16,6 @@ $tenant = "tam-nestedworkload" # I.e.: https://vcd.example.com/tenant/<this valu
 $apiKey = ""
 
 # vAPP IDs - I.e.: https://vcd.example.com/tenant/<tenant name>/vdcs/dca7041a-2ac4-46ce-8574-3392442cdedf/vapp/<this value>/general
-
 $vApps = @(
     "vapp-11111111-2222-3333-4444-555555555555",
     "vapp-11111111-2222-3333-4444-555555555555"
