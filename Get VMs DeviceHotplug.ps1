@@ -1,5 +1,12 @@
-﻿$creds = Get-Credential
+﻿#######################################################################
+#       vCenter VM devices.hotplug Report
+#######################################################################
+# Author:   Corey Blaz
+# Github:   https://github.com/blazcode
+# Web:      https://coreyblaz.com
 
+# Connect to vCenter
+$creds = Get-Credential
 Connect-VIServer -Server vcsa-8x.corp.local -Credential $creds -Force
 
 # Create output variable
@@ -7,6 +14,7 @@ $output = @()
 
 # Get all VMs and iterate through them, searching for devices.hotplug
 Foreach ($VM in Get-VM) {
+    Write-Host "Checking: " $VM.name
     if ($($VM | Get-AdvancedSetting -Name "devices.hotplug").Value) {
         $devicesHotplug = $true
     } else {
@@ -22,3 +30,4 @@ Foreach ($VM in Get-VM) {
 
 # This can be exported to .csv
 $output | sort -Property devicesHotplug -Descending
+#$output | Export-Csv -Path C:\temp\report.csv 
