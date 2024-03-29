@@ -2,9 +2,6 @@
 
 Connect-VIServer -Server vcsa-8x.corp.local -Credential $creds -Force
 
-# Get all VMs -> Search for devices.hotplug
-$VMs = Get-VM | Get-AdvancedSetting -Name "devices.hotplug"
-
 # Create output variable
 $output = @()
 
