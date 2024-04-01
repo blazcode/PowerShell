@@ -1,7 +1,7 @@
 ﻿#######################################################################
 #       vCenter VM devices.hotplug Report
 #######################################################################
-# Author:   Corey Blaz
+# Author(s):   Corey Blaz & Michael Gorka
 # Github:   https://github.com/blazcode
 # Web:      https://coreyblaz.com
 
@@ -35,4 +35,4 @@ Foreach ($VM in Get-VM) {
 
 # This can be exported to .csv
 $output | sort -Property devicesHotplug -Descending | Format-Table
-#$output | Export-Csv -Path C:\temp\report.csv 
+$output | Export-Csv -Path C:\temp\report.csv -NoTypeInformation
