@@ -9,8 +9,8 @@
 
 # ------ Script Configuration ------
 # vCloud Director environment
-$vcd = "https://cloud-amer01.psgcl.vmware.com" # Leave off trailing /, i.e.: https://vcd.example.com
-$tenant = "tam-nestedworkload" # I.e.: https://vcd.example.com/tenant/<this value>
+$vcd = "https://vcd.example.com" # Leave off trailing /, i.e.: https://vcd.example.com
+$tenant = "workload" # I.e.: https://vcd.example.com/tenant/<this value>
 
 # vCloud Director environment API key - 
 $apiKey = ""
@@ -104,16 +104,16 @@ type="application/vnd.vmware.vcloud.leaseSettingsSection+xml">
 
 # ------ Send Google Chat Notification(s) ------
 if($gchatNotify) {
-    Foreach ($task in $tasks) {
+    Foreach ($task in $results) {
         Write-Host "Checking status of task: " $task.Operation
         
         $headers = @{
             "Accept" = "application/*+xml;version=37.2"
-            "Authorization" = $authToken
+            "Authorization" = $token
         }
         $response = Invoke-RestMethod -Uri $task.href -Headers $headers -Method Get
 
-        while ($response.Task.status -eq "running") {
+        while ($response.Task.status -ne "success") {
             Write-Host "..."
             Start-Sleep -Seconds 5
             $response = Invoke-RestMethod -Uri $task.href -Headers $headers -Method Get
