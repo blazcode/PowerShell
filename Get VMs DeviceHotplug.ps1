@@ -3,7 +3,7 @@
 #######################################################################
 # Author(s):   Corey Blaz & Michael Gorka
 # Github:   https://github.com/blazcode
-# Web:      https://coreyblaz.com
+# Web:      https://vcorey.com
 
 # Connect to vCenter
 $creds = Get-Credential
