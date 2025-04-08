@@ -11,6 +11,7 @@ Connect-VIServer -Server vcsa.example.com -Credential $creds -Force
 Connect-VIServer -Server vcsa2.example.com -Credential $creds -Force
 
 $output = @()
+$hasher = [System.Security.Cryptography.HashAlgorithm]::Create('sha256')
 
 foreach ($vc in $global:DefaultVIServers) {
     # Get the vCenter InstanceUUID
@@ -20,7 +21,6 @@ foreach ($vc in $global:DefaultVIServers) {
 
     foreach ($vm in $vms) {
         # Hash combined VM vCenter InstanceUUID and VM InstanceUUIDs to create unique ID
-        $hasher = [System.Security.Cryptography.HashAlgorithm]::Create('sha256')
         $hash = $hasher.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($vCenterInstanceUUID + $vm.ExtensionData.Config.InstanceUuid))
         $globalIdSha = [System.BitConverter]::ToString($hash)
 
@@ -38,7 +38,7 @@ foreach ($vc in $global:DefaultVIServers) {
     }
 }
 
-#Disconnect-VIServer * -Confirm:$false
+Disconnect-VIServer * -Confirm:$false
 
 # Display and export the output
 $output | Format-Table -AutoSize
