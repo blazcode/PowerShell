@@ -14,7 +14,7 @@ $csvFileLocation = "/Users/cblaz/Downloads/vmHost-Network-Core-Dump-Status.csv"
 # No need to edit past here
 
 $creds = Get-Credential
-Connect-VIServer -Server $vCenterFqdn -Credential $creds -NotDefault
+Connect-VIServer -Server $vCenterFqdn -Credential $creds
 Write-Host ""
 
 $output = @()
@@ -32,7 +32,7 @@ foreach ( $vmHost in Get-VMHost ) {
     Write-Host "Enabled: " -ForegroundColor Green -NoNewline
     Write-Host $coreDumpStatus.Enabled -ForegroundColor White
 
-    if ($coreDumpStatus.Enabled) {
+    if ($coreDumpStatus.Enabled -eq 'true') {
         Write-Host "HostVNic: " -ForegroundColor Green -NoNewline
         Write-Host $coreDumpStatus.HostVNic -ForegroundColor White
         
