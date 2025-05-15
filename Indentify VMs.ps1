@@ -7,8 +7,8 @@
 
 # Connect to vCenter(s)
 $creds = Get-Credential
-Connect-VIServer -Server vcsa.example.com -Credential $creds -Force
-Connect-VIServer -Server vcsa2.example.com -Credential $creds -Force
+Connect-VIServer -Server vcsa.lab.blaz.tech -Credential $creds -Force
+#Connect-VIServer -Server vcsa2.example.com -Credential $creds -Force
 
 $output = @()
 $hasher = [System.Security.Cryptography.HashAlgorithm]::Create('sha256')
@@ -30,15 +30,16 @@ foreach ($vc in $global:DefaultVIServers) {
             VM_Name                  = $vm.Name
             VM_MoRef                 = $vm.Id #VM MoRef
             VM_InstanceUUID          = $vm.ExtensionData.Config.InstanceUuid #VM InstanceUUID
-            VM_GlobalUniqueId        = $vCenterInstanceUUID + " + " + $vm.ExtensionData.Config.InstanceUuid #Example for illustrative purposes
-            VM_GlobalUniqueId_SHA256 = $globalIdSha.Replace('-', '')
+            VM_BiosUUID              = $vm.ExtensionData.Config.Uuid
+            #VM_GlobalUniqueId        = $vCenterInstanceUUID + " + " + $vm.ExtensionData.Config.InstanceUuid #Example for illustrative purposes
+            #VM_GlobalUniqueId_SHA256 = $globalIdSha.Replace('-', '')
         }
 
         $output += $vmData
     }
 }
 
-Disconnect-VIServer * -Confirm:$false
+#Disconnect-VIServer * -Confirm:$false
 
 # Display and export the output
 $output | Format-Table -AutoSize
